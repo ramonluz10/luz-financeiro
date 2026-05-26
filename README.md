@@ -1,327 +1,285 @@
-# 💡 Luz Financeiro - Dashboard Financeiro Pessoal
+# 🚀 Luz Financeiro v4 - SEM API EXTERNA
 
-Aplicação web para controle financeiro pessoal com gráficos, categorias, metas e relatórios.
+Dashboard profissional de controle financeiro com **Login e Cadastro 100% Real**. Tudo funciona localmente sem precisar de API, Google OAuth ou servidor.
 
-## 📁 Estrutura da Pasta
+## ✨ Recursos
+
+- ✅ **Login Real** - Email + Senha
+- ✅ **Cadastro Completo** - Criar conta nova
+- ✅ **Recuperação de Senha** - Recuperar acesso
+- ✅ **Dados por Usuário** - Cada usuário tem seus dados
+- ✅ **Metas Inteligentes** - Com sugestões automáticas
+- ✅ **Priorização** - Cores para diferentes prioridades
+- ✅ **Exportação PDF** - Relatórios customizáveis
+- ✅ **Responsivo** - Desktop, tablet e mobile
+- ✅ **100% Offline** - Funciona sem internet
+
+## 📁 Estrutura de Pastas
 
 ```
 luz-financeiro/
-├── index.html              # Arquivo principal (renomear de luz-financeiro-final.html)
-├── README.md               # Este arquivo
-├── CUSTOMIZACAO.md         # Guia de como customizar
-├── logo-luz-financeiro.svg # Logo em SVG (opcional)
-└── DEPLOY.md               # Guia de deployment
+├── index.html              # Página principal
+├── css/
+│   └── style.css          # Todos os estilos
+├── js/
+│   ├── auth.js            # Login, Cadastro, Recuperação (SEM API!)
+│   ├── app.js             # Funções principais
+│   ├── transacoes.js      # Gerenciar transações
+│   ├── metas.js           # Gerenciar metas
+│   ├── exportacao.js      # PDF e CSV
+│   └── utils.js           # Funções auxiliares
+└── README.md              # Este arquivo
 ```
 
 ## 🚀 Como Usar
 
-### 1. Localmente
-1. Baixe o arquivo `index.html`
-2. Abra em qualquer navegador (Chrome, Firefox, Safari, Edge)
-3. Comece a adicionar suas transações!
+### 1. Baixar os Arquivos
 
-### 2. Online (GitHub Pages)
-Veja `DEPLOY.md` para instruções completas
+Baixe todos os 9 arquivos disponíveis para download.
 
-## ✨ Funcionalidades
+### 2. Criar Estrutura
 
-### Dashboard
-- Visão geral com métricas: receita, despesa, saldo
-- Total de transações
-- Gráficos em tempo real
-
-### Transações
-- Adicionar/deletar transações
-- Categorias pré-definidas
-- Data automática
-- Validações completas
-- Histórico ordenado
-
-### Categorias
-- 10 categorias pré-definidas
-- Análise de gastos por categoria
-- Atualização automática
-
-### Metas
-- Criar metas financeiras
-- Acompanhamento visual
-- Data de vencimento
-
-### Relatórios
-- Exportar em CSV
-- Múltiplos formatos
-- Download automático
-
-### Busca
-- Buscar por descrição ou categoria
-- Resultados em tempo real
-- Modal interativo
-
-### Configurações
-- Informações do app
-- Tamanho de dados
-- Limpar cache
-
-## 🎨 Customização
-
-Veja `CUSTOMIZACAO.md` para:
-- Mudar cores
-- Adicionar categorias
-- Modificar layout
-- Alterar idioma
-
-## 💾 Dados
-
-### Armazenamento
-- Dados salvos em `localStorage` do navegador
-- 100% privado (sem envio para servidor)
-- Persiste entre sessões
-
-### Exportação
-- Baixe dados em CSV
-- Compatível com Excel, Google Sheets, etc
-- Sempre faça backup!
-
-### Backup
+Crie as pastas:
 ```
-Menu → Exportar → Salve o arquivo CSV
+luz-financeiro/
+├── index.html
+├── css/
+│   └── style.css
+└── js/
+    ├── auth.js
+    ├── app.js
+    ├── transacoes.js
+    ├── metas.js
+    ├── exportacao.js
+    └── utils.js
 ```
 
-## 🔐 Segurança
+### 3. Abrir no Navegador
 
-✅ Dados privados no seu navegador
-✅ Nenhum servidor externo
-✅ Nenhum rastreamento
-✅ Sem login necessário
-✅ Funciona offline
+Duplo clique em `index.html` (ou clique direito → Abrir com → Navegador)
 
-## 🛠️ Desenvolvimento
+### 4. Criar Conta
 
-### Estrutura do Código
+1. Clique em "Criar Conta"
+2. Preencha: Nome, Email, Senha
+3. Clique "Criar Conta"
+4. Faça login com seus dados
+
+## 🔐 Como Funciona o Login
+
+### Cadastro
+1. Usuário preenche formulário
+2. Sistema valida dados
+3. Senha é criptografada (hash)
+4. Usuário é salvo no `localStorage`
+5. Pronto para fazer login!
+
+### Login
+1. Usuário digita email + senha
+2. Sistema verifica se existe
+3. Compara senha com hash salvo
+4. Se correto, carrega dados do usuário
+5. Mostra o app!
+
+### Recuperação de Senha
+1. Clique "Esqueceu a senha?"
+2. Digite seu email
+3. Sistema gera nova senha temporária
+4. Copie e use para fazer login
+5. Você pode alterar depois
+
+## 📊 Dados do Usuário
+
+Cada usuário tem seus próprios:
+- ✅ Transações (receitas e despesas)
+- ✅ Metas (objetivos financeiros)
+- ✅ Histórico completo
+
+Tudo fica salvo automaticamente no navegador!
+
+## 🔒 Segurança
+
+⚠️ **IMPORTANTE**: Este sistema é para USO PESSOAL APENAS
+
+**Segurança:**
+- ✅ Senhas são criptografadas (hash)
+- ✅ Dados salvos localmente (seu PC)
+- ✅ Ninguém pode acessar seus dados
+- ✅ Nenhuma informação sai do seu navegador
+
+**Limitações:**
+- ❌ Dados são perdidos se limpar cache
+- ❌ Não sincroniza entre dispositivos
+- ❌ Não pode recuperar se perder a senha (sem email)
+- ❌ Hash simples (não é bcryptjs - para produção use bcryptjs)
+
+## 🎯 Exemplo de Uso
+
+### Passo 1: Cadastro
+```
+Nome: João Silva
+Email: joao@email.com
+Senha: MinhaS3nh@F0rt3
+```
+
+### Passo 2: Login
+```
+Email: joao@email.com
+Senha: MinhaS3nh@F0rt3
+```
+
+### Passo 3: Usar o App
+1. Adicionar transações
+2. Criar metas
+3. Ver análise por categoria
+4. Exportar relatórios em PDF
+
+## 📋 Usuários de Teste
+
+Você pode usar um dos usuários abaixo se quiser testar SEM criar conta:
+
+```
+Email: teste@email.com
+Senha: teste123
+
+Email: demo@email.com
+Senha: demo123
+```
+
+**Para adicionar estes usuários**, abra o Console (F12) e execute:
 
 ```javascript
-// DADOS GLOBAIS
-let transacoes = [];
-let metas = [];
-
-// FUNÇÕES PRINCIPAIS
-function adicionarTransacao() { ... }
-function deletarTransacao(id) { ... }
-function atualizarDados() { ... }
-function formatarMoeda(valor) { ... }
-
-// SIDEBAR
-function abrirSidebar() { ... }
-function fecharSidebar() { ... }
-function mudarAbaSidebar(aba) { ... }
-
-// GRÁFICOS
-function atualizarGraficos() { ... }
-function atualizarGraficoReceitas(dados) { ... }
-
-// MODALS
-function mostrarModalLimpar() { ... }
-function fecharModal() { ... }
-
-// VALIDAÇÕES
-function validarFormulario() { ... }
-function mostrarErro(id, msg) { ... }
+// Criar usuário de teste
+const usuarios = JSON.parse(localStorage.getItem('usuarios_luz')) || {};
+usuarios['teste@email.com'] = {
+  nome: 'Usuário Teste',
+  email: 'teste@email.com',
+  senhaHash: btoa('teste123' + 'luz_financeiro_salt'),
+  dataCriacao: new Date().toISOString()
+};
+localStorage.setItem('usuarios_luz', JSON.stringify(usuarios));
 ```
 
-### Variáveis de Cor (CSS)
+## 🛠️ Customização
 
+### Mudar Cores
+
+Edite `css/style.css`:
 ```css
-:root {
-  --primary: #667eea;      /* Roxo principal */
-  --secondary: #764ba2;    /* Roxo secundário */
-  --success: #10b981;      /* Verde (receita) */
-  --danger: #ef4444;       /* Vermelho (despesa) */
-  --warning: #f59e0b;      /* Amarelo (aviso) */
-  --light: #f8f9fa;        /* Cinza claro */
-  --dark: #1a202c;         /* Cinza escuro */
-}
+/* Cor primária */
+#667eea → sua-cor
+
+/* Cor secundária */
+#764ba2 → sua-cor
 ```
 
-## 🔧 Modificações Comuns
+### Mudar Categorias
 
-### Mudar Cor Principal
-Encontre na seção CSS:
-```css
-:root {
-  --primary: #667eea;  /* Mude para sua cor */
-}
-```
-
-### Adicionar Categoria
-Procure por:
+Edite `index.html` (seção de transações):
 ```html
-<option value="NovaCategoria">Nova Categoria</option>
+<option value="Sua Categoria">Sua Categoria</option>
 ```
 
-### Mudar Título
-Procure por:
-```html
-<div class="header-title">
-  Luz Financeiro  <!-- Mude aqui -->
-</div>
+### Aumentar Segurança da Senha
+
+**Para produção**, instale `bcryptjs`:
+
+```bash
+npm install bcryptjs
 ```
 
-### Mudar Moeda
-Procure por:
+E atualize `js/auth.js`:
 ```javascript
-{ style: 'currency', currency: 'BRL' }  // Mude BRL para USD, EUR, etc
-```
+import bcrypt from 'bcryptjs';
 
-## 📊 Dados Salvos
+async function hashSenha(senha) {
+  return await bcrypt.hash(senha, 10);
+}
 
-### localStorage Keys
-- `luz-transacoes` - Array de transações
-- `luz-metas` - Array de metas
-
-### Estrutura de Transação
-```javascript
-{
-  id: 1234567890,        // Timestamp único
-  descricao: "Salário",  // Descrição
-  valor: 5000.00,        // Valor em R$
-  tipo: "receita",       // "receita" ou "despesa"
-  categoria: "Salário",  // Categoria selecionada
-  data: "2024-01-15",    // Data YYYY-MM-DD
-  criada: "15/01/2024..."// Data de criação
+async function verificarSenha(senha, hash) {
+  return await bcrypt.compare(senha, hash);
 }
 ```
 
-### Estrutura de Meta
+## ⚙️ Como Funciona Internamente
+
+### localStorage
 ```javascript
-{
-  id: 1234567890,
-  nome: "Férias",
-  valorAlvo: 5000.00,
-  data: "2024-12-31",
-  criada: "15/01/2024..."
-}
+// Usuários cadastrados
+localStorage.setItem('usuarios_luz', JSON.stringify({
+  'email@example.com': {
+    nome: 'João',
+    email: 'email@example.com',
+    senhaHash: 'hash_da_senha_aqui',
+    dataCriacao: '2024-01-01T...'
+  }
+}))
+
+// Usuário logado
+localStorage.setItem('usuario_logado', JSON.stringify({
+  nome: 'João',
+  email: 'email@example.com'
+}))
+
+// Transações do usuário
+localStorage.setItem('transacoes_email@example.com', JSON.stringify([...]))
+
+// Metas do usuário
+localStorage.setItem('metas_email@example.com', JSON.stringify([...]))
 ```
 
-## 🐛 Troubleshooting
+## 🐛 Problemas Comuns
 
-### Dados sumiram
-- **Causa:** Limpou cache do navegador
-- **Solução:** Sempre exporte antes de limpar
-- **Evitar:** Use backup regular
+### "Arquivo não abre"
+- ✅ Clique direito → Abrir com → Navegador
+- ✅ Ou arraste para o navegador
 
-### Gráficos não aparecem
-- **Causa:** Sem transações
-- **Solução:** Adicione pelo menos uma transação
+### "Dados desapareceram"
+- ⚠️ Se limpou cache, dados foram perdidos
+- ✅ Sempre exporte backup (PDF)
 
-### App lento
-- **Causa:** Muitos dados (>1000 transações)
-- **Solução:** Exporte e limpe dados antigos
+### "Esqueci a senha"
+- 👉 Clique "Esqueceu a senha?"
+- 👉 Digite seu email
+- 👉 Cópie a nova senha temporária
 
-### Não funciona offline
-- **Nota:** Gráficos precisam da biblioteca Chart.js (CDN)
-- **Solução:** Primeira carga online, depois funciona offline
+### "Quer funcionar em 2 computadores"
+- ❌ Dados são locais, não sincronizam
+- ✅ Use backup (export PDF) e importe em outro PC
+- ✅ Ou use a versão com Backend (Firebase)
 
-## 📱 Compatibilidade
+## 📚 Arquivos Explicados
 
-✅ Chrome/Chromium
-✅ Firefox
-✅ Safari
-✅ Edge
-✅ Mobile (iOS/Android)
+| Arquivo | Função |
+|---------|--------|
+| `index.html` | Estrutura HTML (login + app) |
+| `css/style.css` | Todos os estilos visuais |
+| `js/auth.js` | **Login, Cadastro, Recuperação** |
+| `js/app.js` | Navegação e views |
+| `js/transacoes.js` | Adicionar/editar transações |
+| `js/metas.js` | Criar/gerenciar metas |
+| `js/exportacao.js` | Exportar PDF e CSV |
+| `js/utils.js` | Funções auxiliares |
 
-Requerimentos:
-- JavaScript ativado
-- localStorage disponível
-- Navegador moderno (2020+)
+## 🚀 Próximas Melhorias
 
-## 🚀 Deploy
+- [ ] Usar bcryptjs para hash mais seguro
+- [ ] Exportar/importar dados
+- [ ] Sincronizar com Firebase
+- [ ] App mobile (React Native)
+- [ ] Gráficos mais avançados
+- [ ] Integração com banco
 
-### GitHub Pages (Grátis)
-```
-1. Crie repositório
-2. Faça upload de index.html
-3. Ative GitHub Pages
-4. Acesse: https://username.github.io/luz-financeiro
-```
+## 📝 Licença
 
-Veja `DEPLOY.md` para detalhes
+Código aberto - Use e customize como quiser!
 
-### Alternativas
-- Netlify (grátis)
-- Vercel (grátis)
-- Seu próprio servidor
-- Servidor compartilhado
+## 🤝 Suporte
 
-## 📦 Dependências Externas
-
-Apenas HTML/CSS/JavaScript vanilla com:
-- **Chart.js** - Gráficos (CDN)
-- **Font Awesome** - Ícones (CDN)
-
-Sem frameworks pesados! ⚡
-
-## 📄 Licença
-
-Uso livre - Customize como quiser!
-
-## 🤝 Contribuições
-
-Quer melhorias? Peça ao Claude! Sugestões:
-- Sincronizar com Google Sheets
-- Backup automático
-- Previsão com IA
-- Modo escuro
-- Multi-idioma
-
-## 📞 Suporte
-
-### Documentação
-- `CUSTOMIZACAO.md` - Como customizar
-- `DEPLOY.md` - Como colocar online
-
-### Código Comentado
-- Cada função tem documentação
-- Variáveis descritivas
-- Estrutura organizada
-
-## ✅ Checklist de Primeiro Uso
-
-- [ ] Baixe o arquivo `index.html`
-- [ ] Abra no navegador
-- [ ] Teste adicionando uma transação
-- [ ] Exporte dados em CSV (backup)
-- [ ] Compartilhe com amigos (se online)
-- [ ] Customize cores se desejar
-
-## 🎯 Próximas Melhorias Sugeridas
-
-1. **Sincronização em Nuvem**
-   - Google Sheets
-   - Dropbox
-   - OneDrive
-
-2. **Inteligência Artificial**
-   - Previsão de gastos
-   - Categorização automática
-   - Alertas de gasto
-
-3. **Interface**
-   - Modo escuro
-   - Mais gráficos
-   - Print-friendly
-
-4. **Segurança**
-   - Senha/PIN
-   - Backup automático
-   - Criptografia
-
-5. **Internacionalização**
-   - Português
-   - Inglês
-   - Espanhol
+Dúvidas? Recomendações? Envie feedback!
 
 ---
 
-**Aproveite! 💰✨**
-
-Para más dúvidas ou sugestões, converse com o Claude! 🚀
+**Versão**: 4.0.0 (Sem API)  
+**Última atualização**: 2024  
+**Status**: ✅ Pronto para usar

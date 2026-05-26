@@ -1,886 +1,242 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <!-- =============== META TAGS =============== -->
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Luz Financeiro - Dashboard de controle financeiro pessoal">
-  <meta name="theme-color" content="#667eea">
-  <meta property="og:title" content="Luz Financeiro">
-  <meta property="og:description" content="Controle suas finanças de forma simples e visual">
-  <meta property="og:image" content="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 150'><text x='50' y='55' font-size='48' font-weight='bold' fill='%23667eea'>LUZ</text></svg>">
-  
-  <title>Luz Financeiro - Dashboard de Finanças Pessoais</title>
-  
-  <!-- =============== FAVICON =============== -->
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 150'><defs><linearGradient id='g' x1='0%' y1='0%' x2='100%' y2='100%'><stop offset='0%' style='stop-color:%23667eea'/><stop offset='100%' style='stop-color:%23764ba2'/></linearGradient></defs><text x='50' y='55' font-size='48' font-weight='bold' fill='url(%23g)'>LUZ</text><circle cx='25' cy='30' r='12' fill='%23fbbf24' stroke='white' stroke-width='2'/><text x='25' y='36' font-size='16' font-weight='bold' fill='white' text-anchor='middle'>$</text><circle cx='175' cy='30' r='12' fill='%23fbbf24' stroke='white' stroke-width='2'/><text x='175' y='36' font-size='16' font-weight='bold' fill='white' text-anchor='middle'>$</text><g transform='translate(100, 15)'><path d='M-8 -3 L-8 5 Q-8 12 0 14 Q8 12 8 5 L8 -3 Z' fill='url(%23g)'/><path d='M-3 14 L3 14 L3 16 L-3 16 Z' fill='url(%23g)'/></g></svg>">
-  
-  <!-- =============== ESTILOS (CDN) =============== -->
+  <title>Luz Financeiro - Login</title>
+  <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  
-  <!-- =============== ESTILOS CUSTOMIZADOS =============== -->
-  <style>
-    /* ========== VARIÁVEIS DE COR ========== */
-    :root {
-      --primary: #667eea;
-      --secondary: #764ba2;
-      --success: #10b981;
-      --danger: #ef4444;
-      --warning: #f59e0b;
-      --light: #f8f9fa;
-      --dark: #1a202c;
-      --text-primary: #1a202c;
-      --text-secondary: #666;
-      --border: #e9ecef;
-    }
-
-    /* ========== RESET GLOBAL ========== */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-      background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-      min-height: 100vh;
-      display: flex;
-    }
-
-    /* ========== SIDEBAR ========== */
-    .sidebar {
-      width: 300px;
-      background: white;
-      box-shadow: 2px 0 15px rgba(0, 0, 0, 0.1);
-      display: flex;
-      flex-direction: column;
-      position: fixed;
-      height: 100vh;
-      left: -300px;
-      transition: left 0.3s ease;
-      z-index: 1000;
-      overflow-y: auto;
-    }
-
-    .sidebar.active {
-      left: 0;
-    }
-
-    .sidebar-header {
-      padding: 20px;
-      border-bottom: 1px solid var(--border);
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-    }
-
-    .sidebar-logo {
-      font-size: 24px;
-      font-weight: 700;
-      color: white;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .logo-icon {
-      width: 32px;
-      height: 32px;
-      background: white;
-      border-radius: 8px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 18px;
-    }
-
-    .sidebar-menu {
-      flex: 1;
-      padding: 20px 0;
-      overflow-y: auto;
-    }
-
-    .menu-item {
-      padding: 12px 20px;
-      color: var(--text-secondary);
-      cursor: pointer;
-      transition: all 0.3s;
-      border-left: 4px solid transparent;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      font-size: 14px;
-      font-weight: 500;
-    }
-
-    .menu-item:hover {
-      background: var(--light);
-      color: var(--primary);
-      border-left-color: var(--primary);
-      padding-left: 24px;
-    }
-
-    .menu-item.active {
-      background: var(--light);
-      color: var(--primary);
-      border-left-color: var(--primary);
-    }
-
-    .menu-item i {
-      width: 20px;
-      text-align: center;
-    }
-
-    .sidebar-footer {
-      padding: 20px;
-      border-top: 1px solid var(--border);
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-
-    .info-box {
-      background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-      padding: 12px;
-      border-radius: 10px;
-      font-size: 12px;
-      color: white;
-      text-align: center;
-    }
-
-    .info-box strong {
-      color: white;
-      display: block;
-      margin-bottom: 4px;
-      font-size: 14px;
-    }
-
-    .btn-sidebar {
-      padding: 10px 15px;
-      border: 1px solid var(--border);
-      background: white;
-      color: var(--primary);
-      border-radius: 8px;
-      cursor: pointer;
-      font-size: 13px;
-      font-weight: 600;
-      transition: all 0.3s;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-    }
-
-    .btn-sidebar:hover {
-      background: var(--primary);
-      color: white;
-      border-color: var(--primary);
-    }
-
-    /* ========== OVERLAY ========== */
-    .overlay {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: rgba(0, 0, 0, 0.5);
-      z-index: 999;
-    }
-
-    .overlay.active {
-      display: block;
-    }
-
-    /* ========== MAIN CONTAINER ========== */
-    .dashboard-container {
-      flex: 1;
-      margin-left: 0;
-      transition: margin-left 0.3s ease;
-      width: 100%;
-      display: flex;
-      flex-direction: column;
-    }
-
-    /* ========== HEADER ========== */
-    .header {
-      background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-      color: white;
-      padding: 20px 30px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 20px;
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-    }
-
-    .header-left {
-      display: flex;
-      align-items: center;
-      gap: 20px;
-    }
-
-    .btn-menu {
-      background: rgba(255, 255, 255, 0.2);
-      border: 2px solid rgba(255, 255, 255, 0.3);
-      color: white;
-      cursor: pointer;
-      width: 44px;
-      height: 44px;
-      border-radius: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 18px;
-      transition: all 0.3s;
-    }
-
-    .btn-menu:hover {
-      background: rgba(255, 255, 255, 0.3);
-      border-color: rgba(255, 255, 255, 0.5);
-    }
-
-    .header-title {
-      font-size: 28px;
-      font-weight: 700;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .logo-header {
-      width: 40px;
-      height: 40px;
-      background: linear-gradient(135deg, #fbbf24, var(--warning));
-      border-radius: 8px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 700;
-      color: white;
-      font-size: 20px;
-    }
-
-    .header-actions {
-      display: flex;
-      gap: 12px;
-    }
-
-    .btn-icon {
-      width: 44px;
-      height: 44px;
-      border: 2px solid rgba(255, 255, 255, 0.3);
-      border-radius: 12px;
-      background: rgba(255, 255, 255, 0.1);
-      color: white;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 18px;
-      transition: all 0.3s;
-    }
-
-    .btn-icon:hover {
-      background: rgba(255, 255, 255, 0.2);
-      border-color: rgba(255, 255, 255, 0.5);
-      transform: translateY(-2px);
-    }
-
-    /* ========== CONTENT ========== */
-    .content {
-      flex: 1;
-      padding: 30px;
-      overflow-y: auto;
-    }
-
-    /* ========== METRICS GRID ========== */
-    .metrics-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 20px;
-      margin-bottom: 30px;
-    }
-
-    .metric-card {
-      background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-      border-radius: 16px;
-      padding: 24px;
-      position: relative;
-      overflow: hidden;
-      transition: all 0.3s;
-      border-left: 5px solid var(--primary);
-    }
-
-    .metric-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 10px 30px rgba(102, 126, 234, 0.2);
-    }
-
-    .metric-card.positive {
-      border-left-color: var(--success);
-      background: linear-gradient(135deg, #d4fc79 0%, #96f2d7 100%);
-    }
-
-    .metric-card.negative {
-      border-left-color: var(--danger);
-      background: linear-gradient(135deg, #fca5a5 0%, #f87171 100%);
-    }
-
-    .metric-label {
-      font-size: 13px;
-      font-weight: 600;
-      color: #666;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      margin-bottom: 8px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .metric-value {
-      font-size: 28px;
-      font-weight: 700;
-      color: var(--text-primary);
-      margin-bottom: 8px;
-    }
-
-    /* ========== SECTIONS ========== */
-    .section {
-      background: var(--light);
-      border-radius: 16px;
-      margin-bottom: 30px;
-      padding: 30px;
-      border: 1px solid var(--border);
-    }
-
-    .section-title {
-      font-size: 20px;
-      font-weight: 700;
-      color: var(--text-primary);
-      margin-bottom: 20px;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    /* ========== FORM ========== */
-    .form-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-      gap: 15px;
-      margin-bottom: 15px;
-    }
-
-    input, select {
-      padding: 12px 15px;
-      border: 2px solid var(--border);
-      border-radius: 10px;
-      font-size: 14px;
-      font-family: inherit;
-      transition: all 0.3s;
-      background: white;
-      color: var(--text-primary);
-    }
-
-    input:focus, select:focus {
-      outline: none;
-      border-color: var(--primary);
-      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
-      transform: translateY(-1px);
-    }
-
-    input.error, select.error {
-      border-color: var(--danger);
-      box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
-    }
-
-    .error-message {
-      color: var(--danger);
-      font-size: 12px;
-      margin-top: 5px;
-      display: flex;
-      align-items: center;
-      gap: 5px;
-    }
-
-    /* ========== BUTTONS ========== */
-    .btn-add {
-      width: 100%;
-      padding: 14px;
-      background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-      color: white;
-      border: none;
-      border-radius: 10px;
-      font-size: 15px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.3s;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-    }
-
-    .btn-add:hover:not(:disabled) {
-      transform: translateY(-2px);
-      box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
-    }
-
-    .btn-add:disabled {
-      opacity: 0.6;
-      cursor: not-allowed;
-    }
-
-    /* ========== TABLE ========== */
-    .transactions-table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 14px;
-      margin-top: 20px;
-    }
-
-    .transactions-table thead {
-      background: var(--border);
-    }
-
-    .transactions-table th {
-      padding: 15px;
-      text-align: left;
-      font-weight: 600;
-      color: var(--text-primary);
-      border-bottom: 2px solid #dee2e6;
-    }
-
-    .transactions-table td {
-      padding: 15px;
-      border-bottom: 1px solid var(--border);
-      color: var(--text-secondary);
-    }
-
-    .transactions-table tbody tr:hover {
-      background: #f0f2f5;
-    }
-
-    .transaction-icon {
-      width: 40px;
-      height: 40px;
-      border-radius: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 18px;
-    }
-
-    .transaction-icon.receita {
-      background: rgba(16, 185, 129, 0.1);
-      color: var(--success);
-    }
-
-    .transaction-icon.despesa {
-      background: rgba(239, 68, 68, 0.1);
-      color: var(--danger);
-    }
-
-    .transaction-desc {
-      font-weight: 600;
-      color: var(--text-primary);
-      margin-bottom: 4px;
-    }
-
-    .transaction-date {
-      font-size: 12px;
-      color: #999;
-    }
-
-    .transaction-value {
-      font-weight: 600;
-      font-size: 15px;
-    }
-
-    .transaction-value.receita {
-      color: var(--success);
-    }
-
-    .transaction-value.despesa {
-      color: var(--danger);
-    }
-
-    .btn-delete {
-      background: transparent;
-      color: var(--danger);
-      border: none;
-      cursor: pointer;
-      font-size: 16px;
-      padding: 5px 10px;
-      border-radius: 8px;
-      transition: all 0.2s;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .btn-delete:hover {
-      background: rgba(239, 68, 68, 0.1);
-      color: #dc2626;
-    }
-
-    /* ========== CHARTS ========== */
-    .charts-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-      gap: 20px;
-      margin-top: 30px;
-    }
-
-    .chart-wrapper {
-      background: white;
-      border-radius: 16px;
-      padding: 20px;
-      border: 1px solid var(--border);
-      position: relative;
-      height: 350px;
-    }
-
-    /* ========== EMPTY STATE ========== */
-    .empty-state {
-      text-align: center;
-      padding: 40px;
-      color: #999;
-    }
-
-    .empty-state-icon {
-      font-size: 48px;
-      margin-bottom: 15px;
-      opacity: 0.5;
-    }
-
-    /* ========== NOTIFICATIONS ========== */
-    .notification {
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      background: white;
-      padding: 15px 20px;
-      border-radius: 10px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      max-width: 400px;
-      animation: slideIn 0.3s ease;
-      z-index: 1001;
-    }
-
-    .notification.success {
-      border-left: 4px solid var(--success);
-      color: var(--success);
-    }
-
-    .notification.error {
-      border-left: 4px solid var(--danger);
-      color: var(--danger);
-    }
-
-    @keyframes slideIn {
-      from {
-        transform: translateX(400px);
-        opacity: 0;
-      }
-      to {
-        transform: translateX(0);
-        opacity: 1;
-      }
-    }
-
-    /* ========== MODAL ========== */
-    .modal {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: rgba(0, 0, 0, 0.5);
-      align-items: center;
-      justify-content: center;
-      z-index: 2000;
-    }
-
-    .modal.active {
-      display: flex;
-    }
-
-    .modal-content {
-      background: white;
-      border-radius: 16px;
-      padding: 30px;
-      max-width: 500px;
-      width: 90%;
-      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
-    }
-
-    .modal-title {
-      font-size: 22px;
-      font-weight: 700;
-      color: var(--text-primary);
-      margin-bottom: 15px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .modal-description {
-      color: var(--text-secondary);
-      margin-bottom: 25px;
-      line-height: 1.6;
-      font-size: 14px;
-    }
-
-    .modal-buttons {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-    }
-
-    .modal-buttons button {
-      padding: 12px 20px;
-      border: none;
-      border-radius: 10px;
-      font-size: 14px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.3s;
-    }
-
-    .btn-cancel {
-      background: var(--border);
-      color: var(--text-primary);
-    }
-
-    .btn-cancel:hover {
-      background: #dee2e6;
-    }
-
-    .btn-confirm {
-      background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-      color: white;
-    }
-
-    .btn-confirm:hover {
-      box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
-    }
-
-    .modal-input {
-      width: 100%;
-      padding: 12px 15px;
-      border: 2px solid var(--border);
-      border-radius: 10px;
-      font-size: 14px;
-      margin-bottom: 15px;
-      font-family: inherit;
-    }
-
-    .modal-input:focus {
-      outline: none;
-      border-color: var(--primary);
-      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
-    }
-
-    /* ========== STATS GRID ========== */
-    .stats-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-      gap: 15px;
-      margin-top: 20px;
-    }
-
-    .stat-box {
-      background: white;
-      padding: 15px;
-      border-radius: 12px;
-      border: 1px solid var(--border);
-      text-align: center;
-    }
-
-    .stat-label {
-      font-size: 12px;
-      color: #999;
-      margin-bottom: 5px;
-    }
-
-    .stat-value {
-      font-size: 20px;
-      font-weight: 700;
-      color: var(--primary);
-    }
-
-    /* ========== RESPONSIVE ========== */
-    @media (max-width: 768px) {
-      .sidebar {
-        width: 250px;
-        left: -250px;
-      }
-
-      .header {
-        flex-direction: column;
-        padding: 15px 20px;
-      }
-
-      .header-title {
-        font-size: 22px;
-      }
-
-      .metrics-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .form-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .charts-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .content {
-        padding: 20px;
-      }
-
-      .stats-grid {
-        grid-template-columns: 1fr 1fr;
-      }
-    }
-  </style>
 </head>
+
 <body>
-  <!-- =============== OVERLAY =============== -->
-  <div class="overlay" id="overlay" onclick="fecharSidebar()"></div>
 
-  <!-- =============== SIDEBAR =============== -->
-  <div class="sidebar" id="sidebar">
-    <div class="sidebar-header">
-      <div class="logo-icon">💡</div>
-      <div class="sidebar-logo">Luz</div>
-    </div>
+  <!-- =============== LOGIN/CADASTRO SCREEN =============== -->
+  <div class="auth-screen" id="authScreen">
+    <div class="auth-container">
+      
+      <!-- ===== FORMULÁRIO LOGIN ===== -->
+      <div class="auth-form" id="loginForm">
+        <div class="auth-logo">
+          <i class="fas fa-lightbulb"></i>
+          <h1>Luz Financeiro</h1>
+        </div>
 
-    <div class="sidebar-menu">
-      <div class="menu-item active" onclick="mudarAbaSidebar('dashboard')">
-        <i class="fas fa-chart-line"></i>
-        Dashboard
-      </div>
-      <div class="menu-item" onclick="mudarAbaSidebar('categorias')">
-        <i class="fas fa-tags"></i>
-        Categorias
-      </div>
-      <div class="menu-item" onclick="mudarAbaSidebar('metas')">
-        <i class="fas fa-target"></i>
-        Metas
-      </div>
-      <div class="menu-item" onclick="mudarAbaSidebar('relatorios')">
-        <i class="fas fa-file-csv"></i>
-        Relatórios
-      </div>
-      <div class="menu-item" onclick="mudarAbaSidebar('configuracoes')">
-        <i class="fas fa-cog"></i>
-        Configurações
-      </div>
-    </div>
+        <p class="auth-subtitle">Gerencie suas finanças com inteligência</p>
 
-    <div class="sidebar-footer">
-      <div class="info-box">
-        <strong id="saldoInfo">R$ 0,00</strong>
-        Saldo atual
+        <form onsubmit="fazerLogin(event)">
+          <div class="form-group">
+            <label for="emailLogin"><i class="fas fa-envelope"></i> Email</label>
+            <input type="email" id="emailLogin" placeholder="seu@email.com" required>
+          </div>
+
+          <div class="form-group">
+            <label for="senhaLogin"><i class="fas fa-lock"></i> Senha</label>
+            <input type="password" id="senhaLogin" placeholder="Sua senha" required>
+            <small><a href="#" onclick="mostrarRecuperarSenha(event)">Esqueceu a senha?</a></small>
+          </div>
+
+          <button type="submit" class="btn-auth">
+            <i class="fas fa-sign-in-alt"></i> Entrar
+          </button>
+        </form>
+
+        <div class="auth-separator">OU</div>
+
+        <button type="button" class="btn-auth-secondary" onclick="mostrarCadastro()">
+          <i class="fas fa-user-plus"></i> Criar Conta
+        </button>
+
+        <p class="auth-footer">
+          <i class="fas fa-lock"></i> Seus dados são 100% seguros e privados
+        </p>
       </div>
-      <button class="btn-sidebar" onclick="exportarDados()">
-        <i class="fas fa-download"></i>
-        Exportar
-      </button>
-      <button class="btn-sidebar" onclick="mostrarModalLimpar()">
-        <i class="fas fa-trash"></i>
-        Limpar dados
-      </button>
+
+      <!-- ===== FORMULÁRIO CADASTRO ===== -->
+      <div class="auth-form hidden" id="cadastroForm">
+        <div class="auth-logo">
+          <i class="fas fa-lightbulb"></i>
+          <h1>Criar Conta</h1>
+        </div>
+
+        <p class="auth-subtitle">Comece a controlar suas finanças</p>
+
+        <form onsubmit="fazerCadastro(event)">
+          <div class="form-group">
+            <label for="nomeCadastro"><i class="fas fa-user"></i> Nome Completo</label>
+            <input type="text" id="nomeCadastro" placeholder="João Silva" required minlength="3">
+          </div>
+
+          <div class="form-group">
+            <label for="emailCadastro"><i class="fas fa-envelope"></i> Email</label>
+            <input type="email" id="emailCadastro" placeholder="seu@email.com" required>
+            <small id="emailError" style="color: #ef4444; display: none;">Este email já está cadastrado</small>
+          </div>
+
+          <div class="form-group">
+            <label for="senhaCadastro"><i class="fas fa-lock"></i> Senha</label>
+            <input type="password" id="senhaCadastro" placeholder="Mínimo 6 caracteres" required minlength="6">
+            <small>Mínimo 6 caracteres</small>
+          </div>
+
+          <div class="form-group">
+            <label for="confirmarSenha"><i class="fas fa-lock"></i> Confirmar Senha</label>
+            <input type="password" id="confirmarSenha" placeholder="Confirme a senha" required>
+            <small id="senhaError" style="color: #ef4444; display: none;">As senhas não coincidem</small>
+          </div>
+
+          <div class="form-group">
+            <label>
+              <input type="checkbox" id="termos" required>
+              Concordo com os <a href="#">Termos de Uso</a>
+            </label>
+          </div>
+
+          <button type="submit" class="btn-auth">
+            <i class="fas fa-user-plus"></i> Criar Conta
+          </button>
+        </form>
+
+        <button type="button" class="btn-auth-secondary" onclick="mostrarLogin()">
+          <i class="fas fa-arrow-left"></i> Voltar
+        </button>
+
+        <p class="auth-footer">
+          <i class="fas fa-lock"></i> Seus dados são 100% seguros e privados
+        </p>
+      </div>
+
+      <!-- ===== FORMULÁRIO RECUPERAR SENHA ===== -->
+      <div class="auth-form hidden" id="recuperarForm">
+        <div class="auth-logo">
+          <i class="fas fa-lightbulb"></i>
+          <h1>Recuperar Senha</h1>
+        </div>
+
+        <p class="auth-subtitle">Digite seu email para recuperar a senha</p>
+
+        <form onsubmit="recuperarSenha(event)">
+          <div class="form-group">
+            <label for="emailRecuperar"><i class="fas fa-envelope"></i> Email Cadastrado</label>
+            <input type="email" id="emailRecuperar" placeholder="seu@email.com" required>
+            <small id="emailRecupError" style="color: #ef4444; display: none;">Email não encontrado</small>
+          </div>
+
+          <button type="submit" class="btn-auth">
+            <i class="fas fa-paper-plane"></i> Enviar Link
+          </button>
+        </form>
+
+        <button type="button" class="btn-auth-secondary" onclick="mostrarLogin()">
+          <i class="fas fa-arrow-left"></i> Voltar
+        </button>
+
+        <p class="auth-footer">
+          💡 Link será exibido na próxima tela
+        </p>
+      </div>
+
     </div>
   </div>
 
-  <!-- =============== MAIN CONTAINER =============== -->
-  <div class="dashboard-container">
-    <!-- =============== HEADER =============== -->
-    <div class="header">
-      <div class="header-left">
-        <button class="btn-menu" onclick="abrirSidebar()">
-          <i class="fas fa-bars"></i>
-        </button>
-        <div class="logo-header">L$</div>
-        <div class="header-title">
-          Luz Financeiro
+  <!-- =============== APP CONTAINER =============== -->
+  <div class="app-container" id="appContainer" style="display: none;">
+    <div class="overlay" id="overlay" onclick="fecharSidebar()"></div>
+
+    <!-- =============== SIDEBAR =============== -->
+    <div class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <div class="sidebar-logo">💡 Luz</div>
+      </div>
+
+      <div class="sidebar-menu">
+        <div class="menu-item active" onclick="mudarAba('dashboard')">
+          <i class="fas fa-chart-line"></i>
+          Dashboard
+        </div>
+        <div class="menu-item" onclick="mudarAba('metas')">
+          <i class="fas fa-target"></i>
+          Metas
+        </div>
+        <div class="menu-item" onclick="mudarAba('categorias')">
+          <i class="fas fa-tags"></i>
+          Categorias
+        </div>
+        <div class="menu-item" onclick="mudarAba('relatorios')">
+          <i class="fas fa-file-pdf"></i>
+          Relatórios
         </div>
       </div>
-      <div class="header-actions">
-        <button class="btn-icon" onclick="mostrarModalBuscar()" title="Buscar">
-          <i class="fas fa-search"></i>
-        </button>
-        <button class="btn-icon" onclick="mostrarModalNotificacoes()" title="Notificações">
-          <i class="fas fa-bell"></i>
+
+      <div class="sidebar-footer">
+        <div class="user-card">
+          <strong id="userName">Carregando...</strong>
+          <small id="userEmail">email@example.com</small>
+        </div>
+        <button class="btn-logout" onclick="fazerLogout()">
+          <i class="fas fa-sign-out-alt"></i> Sair
         </button>
       </div>
     </div>
 
-    <!-- =============== CONTENT =============== -->
-    <div class="content">
-      <!-- ============= DASHBOARD VIEW ============= -->
-      <div id="dashboard-view">
-        <!-- Metrics Grid -->
-        <div class="metrics-grid">
-          <div class="metric-card positive">
-            <div class="metric-label"><i class="fas fa-arrow-up"></i>Receita total</div>
-            <div class="metric-value" id="totalReceita">R$ 0,00</div>
-            <div class="metric-change" id="changeReceita"></div>
-          </div>
-          <div class="metric-card negative">
-            <div class="metric-label"><i class="fas fa-arrow-down"></i>Despesa total</div>
-            <div class="metric-value" id="totalDespesa">R$ 0,00</div>
-            <div class="metric-change" id="changeDespesa"></div>
-          </div>
-          <div class="metric-card">
-            <div class="metric-label"><i class="fas fa-wallet"></i>Saldo</div>
-            <div class="metric-value" id="saldo">R$ 0,00</div>
-            <div class="metric-change" id="changeSaldo"></div>
-          </div>
-          <div class="metric-card">
-            <div class="metric-label"><i class="fas fa-list-ul"></i>Transações</div>
-            <div class="metric-value" id="totalTransacoes">0</div>
+    <!-- =============== MAIN CONTENT =============== -->
+    <div class="main-content">
+      <!-- =============== HEADER =============== -->
+      <div class="header">
+        <div class="header-left">
+          <button class="btn-menu" onclick="abrirSidebar()">
+            <i class="fas fa-bars"></i>
+          </button>
+          <div class="header-title">
+            <i class="fas fa-lightbulb"></i> Luz v3
           </div>
         </div>
+        <div class="header-actions">
+          <button class="btn-icon" onclick="exportarPDF()" title="Baixar PDF">
+            <i class="fas fa-file-pdf"></i>
+          </button>
+          <button class="btn-icon" onclick="exportarCSV()" title="Exportar CSV">
+            <i class="fas fa-download"></i>
+          </button>
+        </div>
+      </div>
 
-        <!-- Form Section -->
-        <div class="section">
-          <div class="section-title">
-            <i class="fas fa-plus-circle"></i>Adicionar transação
+      <!-- =============== CONTENT =============== -->
+      <div class="content">
+        <!-- ===== DASHBOARD VIEW ===== -->
+        <div id="dashboard" class="view active">
+          <!-- Métricas -->
+          <div class="metrics-grid">
+            <div class="metric-card positive">
+              <div class="metric-label"><i class="fas fa-arrow-up"></i> Receita Total</div>
+              <div class="metric-value" id="totalReceita">R$ 0,00</div>
+            </div>
+            <div class="metric-card negative">
+              <div class="metric-label"><i class="fas fa-arrow-down"></i> Despesa Total</div>
+              <div class="metric-value" id="totalDespesa">R$ 0,00</div>
+            </div>
+            <div class="metric-card">
+              <div class="metric-label"><i class="fas fa-wallet"></i> Saldo</div>
+              <div class="metric-value" id="saldo">R$ 0,00</div>
+            </div>
+            <div class="metric-card">
+              <div class="metric-label"><i class="fas fa-list"></i> Transações</div>
+              <div class="metric-value" id="totalTransacoes">0</div>
+            </div>
           </div>
-          <div class="form-grid">
-            <div>
+
+          <!-- Adicionar Transação -->
+          <div class="section">
+            <div class="section-title">
+              <i class="fas fa-plus-circle"></i> Adicionar Transação
+            </div>
+            <div class="form-grid">
               <input type="text" id="descricao" placeholder="Descrição *" maxlength="50">
-              <div class="error-message" id="erro-descricao"></div>
-            </div>
-            <div>
               <input type="number" id="valor" placeholder="Valor *" step="0.01" min="0.01">
-              <div class="error-message" id="erro-valor"></div>
-            </div>
-            <div>
               <select id="tipo">
-                <option value="">Selecione tipo *</option>
+                <option value="">Tipo *</option>
                 <option value="receita">Receita</option>
                 <option value="despesa">Despesa</option>
               </select>
-              <div class="error-message" id="erro-tipo"></div>
-            </div>
-            <div>
               <select id="categoria">
                 <option value="">Categoria *</option>
                 <option value="Salário">Salário</option>
@@ -894,927 +250,117 @@
                 <option value="Lazer">Lazer</option>
                 <option value="Outros">Outros</option>
               </select>
-              <div class="error-message" id="erro-categoria"></div>
-            </div>
-            <div>
               <input type="date" id="data">
-              <div class="error-message" id="erro-data"></div>
             </div>
+            <button class="btn-add" onclick="adicionarTransacao()">
+              <i class="fas fa-plus"></i> Adicionar
+            </button>
           </div>
-          <button class="btn-add" onclick="adicionarTransacao()">
-            <i class="fas fa-plus"></i>Adicionar transação
-          </button>
-        </div>
 
-        <!-- Transactions Table -->
-        <div class="section">
-          <div class="section-title">
-            <i class="fas fa-history"></i>Histórico de transações
-          </div>
-          <div style="overflow-x: auto;">
-            <table class="transactions-table">
-              <thead>
-                <tr>
-                  <th style="width: 50px;"></th>
-                  <th>Descrição</th>
-                  <th>Categoria</th>
-                  <th>Data</th>
-                  <th style="text-align: right;">Valor</th>
-                  <th style="width: 40px;"></th>
-                </tr>
-              </thead>
-              <tbody id="corpo-tabela">
-                <tr>
-                  <td colspan="6" style="text-align: center; padding: 40px; color: #999;">
-                    <i class="fas fa-inbox" style="font-size: 32px; opacity: 0.3; display: block; margin-bottom: 10px;"></i>
-                    Nenhuma transação ainda
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-
-        <!-- Charts Section -->
-        <div class="section">
-          <div class="section-title">
-            <i class="fas fa-chart-bar"></i>Análises e gráficos
-          </div>
-          <div class="charts-grid" id="charts-container">
-            <div class="empty-state">
-              <div class="empty-state-icon"><i class="fas fa-chart-line"></i></div>
-              <p>Adicione transações para visualizar os gráficos</p>
+          <!-- Histórico -->
+          <div class="section">
+            <div class="section-title">
+              <i class="fas fa-history"></i> Histórico
+            </div>
+            <div class="table-wrapper">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Descrição</th>
+                    <th>Categoria</th>
+                    <th>Data</th>
+                    <th style="text-align: right;">Valor</th>
+                  </tr>
+                </thead>
+                <tbody id="tbody-transacoes">
+                  <tr>
+                    <td colspan="4" style="text-align: center; padding: 40px; color: #999;">Nenhuma transação</td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
           </div>
         </div>
-      </div>
 
-      <!-- ============= CATEGORIAS VIEW ============= -->
-      <div id="categorias-view" style="display: none;">
-        <div class="section">
-          <div class="section-title">
-            <i class="fas fa-tags"></i>Suas categorias
-          </div>
-          <div class="stats-grid" id="stats-categorias">
-            <div class="empty-state" style="grid-column: 1 / -1;">
-              <i class="fas fa-inbox" style="font-size: 32px; opacity: 0.3; margin-bottom: 10px;"></i>
-              <p>Nenhuma transação com categorias ainda</p>
+        <!-- ===== METAS VIEW ===== -->
+        <div id="metas" class="view">
+          <div class="section">
+            <div class="section-title">
+              <i class="fas fa-bullseye"></i> Criar Nova Meta
             </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- ============= METAS VIEW ============= -->
-      <div id="metas-view" style="display: none;">
-        <div class="section">
-          <div class="section-title">
-            <i class="fas fa-target"></i>Minhas metas financeiras
-          </div>
-          <div class="form-grid">
-            <input type="text" id="nomeMeta" placeholder="Nome da meta (ex: Férias)">
-            <input type="number" id="valorMeta" placeholder="Valor alvo" step="0.01" min="0.01">
-            <input type="date" id="dataMeta">
+            <div class="form-grid">
+              <input type="text" id="nomeMeta" placeholder="Nome da meta *" maxlength="30">
+              <input type="number" id="valorMeta" placeholder="Valor alvo *" step="0.01" min="0.01">
+              <input type="date" id="dataMeta">
+              <select id="prioridadeMeta">
+                <option value="baixa">Baixa Prioridade</option>
+                <option value="media">Média Prioridade</option>
+                <option value="alta">Alta Prioridade</option>
+              </select>
+            </div>
             <button class="btn-add" onclick="adicionarMeta()">
-              <i class="fas fa-plus"></i>Adicionar meta
+              <i class="fas fa-plus"></i> Criar Meta
             </button>
           </div>
-          <div class="stats-grid" id="stats-metas" style="margin-top: 30px;">
-            <div class="empty-state" style="grid-column: 1 / -1;">
-              <i class="fas fa-bullseye" style="font-size: 32px; opacity: 0.3; margin-bottom: 10px;"></i>
-              <p>Nenhuma meta criada ainda</p>
+
+          <div class="section">
+            <div class="section-title">
+              <i class="fas fa-rocket"></i> Suas Metas
+            </div>
+            <div id="metasContainer">
+              <div class="empty-state">
+                <div class="empty-state-icon"><i class="fas fa-target"></i></div>
+                <p>Nenhuma meta criada</p>
+              </div>
             </div>
           </div>
         </div>
-      </div>
 
-      <!-- ============= RELATORIOS VIEW ============= -->
-      <div id="relatorios-view" style="display: none;">
-        <div class="section">
-          <div class="section-title">
-            <i class="fas fa-file-csv"></i>Relatórios
+        <!-- ===== CATEGORIAS VIEW ===== -->
+        <div id="categorias" class="view">
+          <div class="section">
+            <div class="section-title">
+              <i class="fas fa-chart-pie"></i> Análise por Categoria
+            </div>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;" id="categoriasContainer">
+              <div class="empty-state" style="grid-column: 1 / -1;">
+                <div class="empty-state-icon"><i class="fas fa-tags"></i></div>
+                <p>Nenhuma categoria com transações</p>
+              </div>
+            </div>
           </div>
-          <div class="form-grid">
-            <select id="tipoRelatorio">
-              <option value="mensal">Relatório mensal</option>
-              <option value="anual">Relatório anual</option>
-              <option value="categoria">Por categoria</option>
-              <option value="completo">Relatório completo</option>
-            </select>
-            <button class="btn-add" onclick="gerarRelatorio()">
-              <i class="fas fa-file-pdf"></i>Gerar relatório
+        </div>
+
+        <!-- ===== RELATÓRIOS VIEW ===== -->
+        <div id="relatorios" class="view">
+          <div class="section">
+            <div class="section-title">
+              <i class="fas fa-file-pdf"></i> Gerar Relatório
+            </div>
+            <div class="form-grid">
+              <select id="tipoRelatorio" style="grid-column: 1 / -1;">
+                <option value="completo">📊 Relatório Completo</option>
+                <option value="mensal">📅 Relatório Mensal</option>
+                <option value="categoria">🏷️ Por Categoria</option>
+                <option value="metas">🎯 Metas</option>
+              </select>
+            </div>
+            <button class="btn-add" onclick="gerarRelatorioPDF()" style="grid-column: 1 / -1;">
+              <i class="fas fa-download"></i> Baixar PDF
             </button>
           </div>
-          <div class="empty-state" style="margin-top: 30px;">
-            <i class="fas fa-file" style="font-size: 48px; opacity: 0.3; margin-bottom: 10px;"></i>
-            <p>Use os filtros acima para gerar relatórios personalizados</p>
-          </div>
-        </div>
-      </div>
-
-      <!-- ============= CONFIGURACOES VIEW ============= -->
-      <div id="configuracoes-view" style="display: none;">
-        <div class="section">
-          <div class="section-title">
-            <i class="fas fa-cog"></i>Configurações
-          </div>
-          <div style="display: flex; flex-direction: column; gap: 15px;">
-            <div style="padding: 15px; background: white; border-radius: 12px; border: 1px solid var(--border);">
-              <strong style="color: var(--text-primary);">App</strong>
-              <p style="color: #999; font-size: 13px; margin-top: 5px;">Luz Financeiro v2.0</p>
-            </div>
-            <div style="padding: 15px; background: white; border-radius: 12px; border: 1px solid var(--border);">
-              <strong style="color: var(--text-primary);">Moeda</strong>
-              <p style="color: #999; font-size: 13px; margin-top: 5px;">Real Brasileiro (R$)</p>
-            </div>
-            <div style="padding: 15px; background: white; border-radius: 12px; border: 1px solid var(--border);">
-              <strong style="color: var(--text-primary);">Tema</strong>
-              <p style="color: #999; font-size: 13px; margin-top: 5px;">Claro</p>
-            </div>
-            <div style="padding: 15px; background: white; border-radius: 12px; border: 1px solid var(--border);">
-              <strong style="color: var(--text-primary);">Logo</strong>
-              <p style="color: #999; font-size: 13px; margin-top: 5px;">Luz Financeiro Completo ✓</p>
-            </div>
-            <div style="padding: 15px; background: white; border-radius: 12px; border: 1px solid var(--border);">
-              <strong style="color: var(--text-primary);">Dados</strong>
-              <p style="color: #999; font-size: 13px; margin-top: 5px;" id="sizeInfo">Tamanho: 0 KB</p>
-              <button class="btn-sidebar" onclick="limparCache()" style="margin-top: 10px; width: 100%;">
-                <i class="fas fa-eraser"></i>
-                Limpar cache
-              </button>
-            </div>
-          </div>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- =============== MODALS =============== -->
-  <!-- Modal: Limpar Tudo -->
-  <div class="modal" id="modal-limpar">
-    <div class="modal-content">
-      <div class="modal-title">
-        <i class="fas fa-exclamation-triangle"></i>Limpar tudo?
-      </div>
-      <div class="modal-description">
-        Tem certeza que deseja deletar TODAS as transações? Esta ação não pode ser desfeita.
-      </div>
-      <div class="modal-buttons">
-        <button class="btn-cancel" onclick="fecharModal()">Cancelar</button>
-        <button class="btn-confirm" onclick="limparTudo()">Sim, deletar tudo</button>
-      </div>
-    </div>
-  </div>
+  <!-- Scripts -->
+  <script src="js/auth.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/transacoes.js"></script>
+  <script src="js/metas.js"></script>
+  <script src="js/exportacao.js"></script>
+  <script src="js/utils.js"></script>
 
-  <!-- Modal: Buscar -->
-  <div class="modal" id="modal-buscar">
-    <div class="modal-content">
-      <div class="modal-title">
-        <i class="fas fa-search"></i>Buscar transação
-      </div>
-      <input type="text" class="modal-input" id="busca-input" placeholder="Digite a descrição...">
-      <div id="busca-resultado"></div>
-      <div class="modal-buttons">
-        <button class="btn-cancel" onclick="fecharModal()">Fechar</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- Modal: Notificações -->
-  <div class="modal" id="modal-notificacoes">
-    <div class="modal-content">
-      <div class="modal-title">
-        <i class="fas fa-bell"></i>Notificações
-      </div>
-      <div id="notificacoes-content">
-        <div style="text-align: center; padding: 30px; color: #999;">
-          <i class="fas fa-check-circle" style="font-size: 32px; opacity: 0.3; display: block; margin-bottom: 10px;"></i>
-          <p>Você está em dia com seus registros!</p>
-        </div>
-      </div>
-      <div class="modal-buttons">
-        <button class="btn-cancel" onclick="fecharModal()">Fechar</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- =============== SCRIPTS =============== -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
-  
-  <script>
-    // =============== DADOS GLOBAIS ===============
-    let transacoes = [];
-    let metas = [];
-    let chartReceitas, chartDespesas, chartEvoluçao;
-
-    // =============== INICIALIZAÇÃO ===============
-    /**
-     * Carrega dados do localStorage ao iniciar
-     */
-    function carregarDados() {
-      const dados = localStorage.getItem('luz-transacoes');
-      const metasData = localStorage.getItem('luz-metas');
-      
-      if (dados) {
-        try {
-          transacoes = JSON.parse(dados);
-        } catch (e) {
-          transacoes = [];
-        }
-      }
-      
-      if (metasData) {
-        try {
-          metas = JSON.parse(metasData);
-        } catch (e) {
-          metas = [];
-        }
-      }
-      
-      document.getElementById('data').valueAsDate = new Date();
-      atualizarDados();
-      atualizarInfoSidebar();
-    }
-
-    // =============== SIDEBAR ===============
-    /**
-     * Abre a sidebar
-     */
-    function abrirSidebar() {
-      document.getElementById('sidebar').classList.add('active');
-      document.getElementById('overlay').classList.add('active');
-    }
-
-    /**
-     * Fecha a sidebar
-     */
-    function fecharSidebar() {
-      document.getElementById('sidebar').classList.remove('active');
-      document.getElementById('overlay').classList.remove('active');
-    }
-
-    /**
-     * Muda a aba da sidebar
-     * @param {string} aba - Nome da aba (dashboard, categorias, metas, etc)
-     */
-    function mudarAbaSidebar(aba) {
-      // Esconde todas as views
-      document.querySelectorAll('[id$="-view"]').forEach(el => el.style.display = 'none');
-      
-      // Mostra a view selecionada
-      document.getElementById(aba + '-view').style.display = 'block';
-      
-      // Atualiza menu item ativo
-      document.querySelectorAll('.menu-item').forEach(el => el.classList.remove('active'));
-      event.target.closest('.menu-item').classList.add('active');
-      
-      // Fecha a sidebar
-      fecharSidebar();
-
-      // Atualiza dados específicos de cada aba
-      if (aba === 'categorias') atualizarStatsCategorias();
-      if (aba === 'metas') atualizarStatsMetas();
-    }
-
-    // =============== VALIDAÇÕES ===============
-    /**
-     * Valida o formulário de transação
-     * @returns {boolean} - True se válido, false caso contrário
-     */
-    function validarFormulario() {
-      let valido = true;
-      const descricao = document.getElementById('descricao').value.trim();
-      const valor = document.getElementById('valor').value;
-      const tipo = document.getElementById('tipo').value;
-      const categoria = document.getElementById('categoria').value;
-      const data = document.getElementById('data').value;
-
-      // Limpa erros anteriores
-      document.querySelectorAll('.error-message').forEach(el => el.textContent = '');
-      document.querySelectorAll('input, select').forEach(el => el.classList.remove('error'));
-
-      // Validar descrição
-      if (!descricao) {
-        mostrarErro('erro-descricao', 'Descrição é obrigatória');
-        document.getElementById('descricao').classList.add('error');
-        valido = false;
-      } else if (descricao.length < 3) {
-        mostrarErro('erro-descricao', 'Mínimo 3 caracteres');
-        document.getElementById('descricao').classList.add('error');
-        valido = false;
-      }
-
-      // Validar valor
-      if (!valor || isNaN(valor) || parseFloat(valor) <= 0) {
-        mostrarErro('erro-valor', 'Valor deve ser > 0');
-        document.getElementById('valor').classList.add('error');
-        valido = false;
-      } else if (parseFloat(valor) > 999999.99) {
-        mostrarErro('erro-valor', 'Valor muito grande');
-        document.getElementById('valor').classList.add('error');
-        valido = false;
-      }
-
-      // Validar tipo
-      if (!tipo) {
-        mostrarErro('erro-tipo', 'Selecione um tipo');
-        document.getElementById('tipo').classList.add('error');
-        valido = false;
-      }
-
-      // Validar categoria
-      if (!categoria) {
-        mostrarErro('erro-categoria', 'Selecione uma categoria');
-        document.getElementById('categoria').classList.add('error');
-        valido = false;
-      }
-
-      // Validar data
-      if (!data) {
-        mostrarErro('erro-data', 'Data é obrigatória');
-        document.getElementById('data').classList.add('error');
-        valido = false;
-      } else {
-        const dataObj = new Date(data);
-        const hoje = new Date();
-        hoje.setHours(0, 0, 0, 0);
-        if (dataObj > hoje) {
-          mostrarErro('erro-data', 'Data não pode ser futura');
-          document.getElementById('data').classList.add('error');
-          valido = false;
-        }
-      }
-
-      return valido;
-    }
-
-    /**
-     * Mostra mensagem de erro em campo
-     * @param {string} elementId - ID do elemento de erro
-     * @param {string} mensagem - Mensagem de erro
-     */
-    function mostrarErro(elementId, mensagem) {
-      document.getElementById(elementId).textContent = `✗ ${mensagem}`;
-    }
-
-    // =============== TRANSAÇÕES ===============
-    /**
-     * Adiciona nova transação
-     */
-    function adicionarTransacao() {
-      if (!validarFormulario()) {
-        mostrarNotificacao('Corrija os erros acima', 'error');
-        return;
-      }
-
-      const descricao = document.getElementById('descricao').value.trim();
-      const valor = parseFloat(document.getElementById('valor').value);
-      const tipo = document.getElementById('tipo').value;
-      const categoria = document.getElementById('categoria').value;
-      const data = document.getElementById('data').value;
-
-      // Cria objeto de transação
-      transacoes.push({
-        id: Date.now(),
-        descricao,
-        valor: Math.round(valor * 100) / 100,
-        tipo,
-        categoria,
-        data,
-        criada: new Date().toLocaleString('pt-BR')
-      });
-
-      // Salva no localStorage
-      localStorage.setItem('luz-transacoes', JSON.stringify(transacoes));
-      mostrarNotificacao('✓ Transação adicionada com sucesso!', 'success');
-
-      // Limpa formulário
-      document.getElementById('descricao').value = '';
-      document.getElementById('valor').value = '';
-      document.getElementById('tipo').value = '';
-      document.getElementById('categoria').value = '';
-      document.getElementById('data').valueAsDate = new Date();
-      document.getElementById('descricao').focus();
-
-      // Atualiza interface
-      atualizarDados();
-      atualizarInfoSidebar();
-    }
-
-    /**
-     * Deleta uma transação
-     * @param {number} id - ID da transação
-     */
-    function deletarTransacao(id) {
-      transacoes = transacoes.filter(t => t.id !== id);
-      localStorage.setItem('luz-transacoes', JSON.stringify(transacoes));
-      mostrarNotificacao('Transação deletada', 'success');
-      atualizarDados();
-      atualizarInfoSidebar();
-    }
-
-    // =============== METAS ===============
-    /**
-     * Adiciona nova meta financeira
-     */
-    function adicionarMeta() {
-      const nome = document.getElementById('nomeMeta').value.trim();
-      const valor = parseFloat(document.getElementById('valorMeta').value);
-      const data = document.getElementById('dataMeta').value;
-
-      if (!nome || !valor || valor <= 0 || !data) {
-        mostrarNotificacao('Preencha todos os campos da meta', 'error');
-        return;
-      }
-
-      metas.push({
-        id: Date.now(),
-        nome,
-        valorAlvo: Math.round(valor * 100) / 100,
-        data,
-        criada: new Date().toLocaleString('pt-BR')
-      });
-
-      localStorage.setItem('luz-metas', JSON.stringify(metas));
-      mostrarNotificacao('✓ Meta criada com sucesso!', 'success');
-
-      // Limpa formulário
-      document.getElementById('nomeMeta').value = '';
-      document.getElementById('valorMeta').value = '';
-      document.getElementById('dataMeta').value = '';
-
-      atualizarStatsMetas();
-    }
-
-    // =============== MODALS ===============
-    /**
-     * Mostra modal de confirmação para limpar dados
-     */
-    function mostrarModalLimpar() {
-      document.getElementById('modal-limpar').classList.add('active');
-    }
-
-    /**
-     * Mostra modal de busca
-     */
-    function mostrarModalBuscar() {
-      document.getElementById('modal-buscar').classList.add('active');
-      document.getElementById('busca-input').focus();
-      document.getElementById('busca-input').addEventListener('keyup', executarBusca);
-    }
-
-    /**
-     * Mostra modal de notificações
-     */
-    function mostrarModalNotificacoes() {
-      document.getElementById('modal-notificacoes').classList.add('active');
-    }
-
-    /**
-     * Executa busca de transações
-     */
-    function executarBusca() {
-      const termo = document.getElementById('busca-input').value.toLowerCase();
-      const resultado = document.getElementById('busca-resultado');
-
-      if (!termo) {
-        resultado.innerHTML = '';
-        return;
-      }
-
-      const encontrados = transacoes.filter(t => 
-        t.descricao.toLowerCase().includes(termo) || 
-        t.categoria.toLowerCase().includes(termo)
-      );
-
-      if (encontrados.length === 0) {
-        resultado.innerHTML = '<div style="text-align: center; padding: 20px; color: #999;"><i class="fas fa-search" style="font-size: 32px; opacity: 0.3; display: block; margin-bottom: 10px;"></i><p>Nenhum resultado encontrado</p></div>';
-        return;
-      }
-
-      resultado.innerHTML = encontrados.map(t => `
-        <div style="padding: 12px; background: white; border-radius: 8px; margin-bottom: 10px; border: 1px solid var(--border);">
-          <div style="display: flex; justify-content: space-between; align-items: center;">
-            <div>
-              <strong>${t.descricao}</strong>
-              <p style="color: #999; font-size: 12px; margin-top: 4px;">${t.categoria} • ${new Date(t.data).toLocaleDateString('pt-BR')}</p>
-            </div>
-            <div style="color: ${t.tipo === 'receita' ? '#10b981' : '#ef4444'}; font-weight: 600;">
-              ${t.tipo === 'receita' ? '+' : '-'}R$ ${t.valor.toFixed(2)}
-            </div>
-          </div>
-        </div>
-      `).join('');
-    }
-
-    /**
-     * Fecha todos os modals
-     */
-    function fecharModal() {
-      document.querySelectorAll('.modal').forEach(m => m.classList.remove('active'));
-      const input = document.getElementById('busca-input');
-      if (input) {
-        input.removeEventListener('keyup', executarBusca);
-      }
-    }
-
-    /**
-     * Limpa todos os dados
-     */
-    function limparTudo() {
-      transacoes = [];
-      localStorage.setItem('luz-transacoes', JSON.stringify(transacoes));
-      mostrarNotificacao('Todas as transações foram deletadas', 'success');
-      fecharModal();
-      atualizarDados();
-      atualizarInfoSidebar();
-    }
-
-    /**
-     * Limpa cache e recarrega página
-     */
-    function limparCache() {
-      localStorage.clear();
-      mostrarNotificacao('Cache limpo! Recarregando...', 'success');
-      setTimeout(() => location.reload(), 1500);
-    }
-
-    // =============== EXPORTAÇÃO ===============
-    /**
-     * Exporta dados em CSV
-     */
-    function exportarDados() {
-      if (transacoes.length === 0) {
-        mostrarNotificacao('Nenhuma transação para exportar', 'error');
-        return;
-      }
-
-      let csv = 'Data,Descrição,Categoria,Tipo,Valor\n';
-      transacoes.forEach(t => {
-        csv += `"${t.data}","${t.descricao}","${t.categoria}","${t.tipo}",${t.valor.toFixed(2)}\n`;
-      });
-
-      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
-      const link = document.createElement('a');
-      link.href = URL.createObjectURL(blob);
-      link.download = `luz-financeiro-${new Date().toISOString().split('T')[0]}.csv`;
-      link.click();
-      mostrarNotificacao('✓ Arquivo exportado com sucesso!', 'success');
-    }
-
-    /**
-     * Gera relatório
-     */
-    function gerarRelatorio() {
-      const tipoRelatorio = document.getElementById('tipoRelatorio').value;
-      if (transacoes.length === 0) {
-        mostrarNotificacao('Nenhuma transação para gerar relatório', 'error');
-        return;
-      }
-      mostrarNotificacao('✓ Relatório gerado! Baixando...', 'success');
-      exportarDados();
-    }
-
-    // =============== NOTIFICAÇÕES ===============
-    /**
-     * Mostra notificação temporária
-     * @param {string} mensagem - Mensagem a exibir
-     * @param {string} tipo - Tipo de notificação (success ou error)
-     */
-    function mostrarNotificacao(mensagem, tipo) {
-      const notif = document.createElement('div');
-      notif.className = `notification ${tipo}`;
-      notif.innerHTML = `<i class="fas fa-${tipo === 'success' ? 'check-circle' : 'exclamation-circle'}"></i>${mensagem}`;
-      document.body.appendChild(notif);
-
-      setTimeout(() => {
-        notif.style.animation = 'slideIn 0.3s ease reverse';
-        setTimeout(() => notif.remove(), 300);
-      }, 3000);
-    }
-
-    // =============== FORMATAÇÃO ===============
-    /**
-     * Formata número como moeda brasileira
-     * @param {number} valor - Valor a formatar
-     * @returns {string} - Valor formatado
-     */
-    function formatarMoeda(valor) {
-      return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(valor);
-    }
-
-    // =============== ATUALIZAÇÃO DE DADOS ===============
-    /**
-     * Atualiza informações da sidebar
-     */
-    function atualizarInfoSidebar() {
-      const receitas = transacoes.filter(t => t.tipo === 'receita').reduce((acc, t) => acc + t.valor, 0);
-      const despesas = transacoes.filter(t => t.tipo === 'despesa').reduce((acc, t) => acc + t.valor, 0);
-      const saldo = receitas - despesas;
-      document.getElementById('saldoInfo').textContent = formatarMoeda(saldo);
-      
-      const sizeKB = (new Blob([JSON.stringify(transacoes)]).size / 1024).toFixed(2);
-      document.getElementById('sizeInfo').textContent = `Tamanho: ${sizeKB} KB`;
-    }
-
-    /**
-     * Atualiza todos os dados na interface
-     */
-    function atualizarDados() {
-      const receitas = transacoes.filter(t => t.tipo === 'receita').reduce((acc, t) => acc + t.valor, 0);
-      const despesas = transacoes.filter(t => t.tipo === 'despesa').reduce((acc, t) => acc + t.valor, 0);
-      const saldo = receitas - despesas;
-
-      document.getElementById('totalReceita').textContent = formatarMoeda(receitas);
-      document.getElementById('totalDespesa').textContent = formatarMoeda(despesas);
-      document.getElementById('saldo').textContent = formatarMoeda(saldo);
-      document.getElementById('totalTransacoes').textContent = transacoes.length;
-
-      const saldoCard = document.getElementById('saldo').parentElement;
-      saldoCard.classList.remove('positive', 'negative');
-      if (saldo > 0) saldoCard.classList.add('positive');
-      else if (saldo < 0) saldoCard.classList.add('negative');
-
-      atualizarTabela();
-      atualizarGraficos();
-    }
-
-    /**
-     * Atualiza tabela de transações
-     */
-    function atualizarTabela() {
-      const corpo = document.getElementById('corpo-tabela');
-      const sorted = [...transacoes].sort((a, b) => new Date(b.data) - new Date(a.data));
-
-      if (sorted.length === 0) {
-        corpo.innerHTML = `
-          <tr>
-            <td colspan="6" style="text-align: center; padding: 40px; color: #999;">
-              <i class="fas fa-inbox" style="font-size: 32px; opacity: 0.3; display: block; margin-bottom: 10px;"></i>
-              Nenhuma transação ainda
-            </td>
-          </tr>
-        `;
-        return;
-      }
-
-      corpo.innerHTML = sorted.map(t => `
-        <tr>
-          <td>
-            <div class="transaction-icon ${t.tipo}">
-              <i class="fas fa-${t.tipo === 'receita' ? 'arrow-down' : 'arrow-up'}"></i>
-            </div>
-          </td>
-          <td>${t.descricao}</td>
-          <td><span style="background: rgba(102, 126, 234, 0.1); color: #667eea; padding: 4px 8px; border-radius: 6px; font-size: 12px; font-weight: 600;">${t.categoria}</span></td>
-          <td>${new Date(t.data).toLocaleDateString('pt-BR')}</td>
-          <td style="text-align: right;">
-            <span class="transaction-value ${t.tipo}">
-              ${t.tipo === 'receita' ? '+' : '-'}${formatarMoeda(t.valor)}
-            </span>
-          </td>
-          <td>
-            <button class="btn-delete" onclick="deletarTransacao(${t.id})" title="Deletar">
-              <i class="fas fa-trash-alt"></i>
-            </button>
-          </td>
-        </tr>
-      `).join('');
-    }
-
-    /**
-     * Atualiza estatísticas de categorias
-     */
-    function atualizarStatsCategorias() {
-      const categorias = {};
-      transacoes.forEach(t => {
-        categorias[t.categoria] = (categorias[t.categoria] || 0) + t.valor;
-      });
-
-      const container = document.getElementById('stats-categorias');
-      if (Object.keys(categorias).length === 0) {
-        container.innerHTML = '<div class="empty-state" style="grid-column: 1 / -1;"><i class="fas fa-inbox" style="font-size: 32px; opacity: 0.3; margin-bottom: 10px;"></i><p>Nenhuma transação com categorias ainda</p></div>';
-        return;
-      }
-
-      container.innerHTML = Object.entries(categorias).map(([cat, valor]) => `
-        <div class="stat-box">
-          <div class="stat-label">${cat}</div>
-          <div class="stat-value">R$ ${valor.toFixed(2)}</div>
-        </div>
-      `).join('');
-    }
-
-    /**
-     * Atualiza estatísticas de metas
-     */
-    function atualizarStatsMetas() {
-      const container = document.getElementById('stats-metas');
-      if (metas.length === 0) {
-        container.innerHTML = '<div class="empty-state" style="grid-column: 1 / -1;"><i class="fas fa-bullseye" style="font-size: 32px; opacity: 0.3; margin-bottom: 10px;"></i><p>Nenhuma meta criada ainda</p></div>';
-        return;
-      }
-
-      container.innerHTML = metas.map(m => {
-        const progresso = Math.min(100, (m.valorAlvo / m.valorAlvo) * 100);
-        return `
-          <div class="stat-box">
-            <div class="stat-label">${m.nome}</div>
-            <div class="stat-value" style="font-size: 16px;">${formatarMoeda(m.valorAlvo)}</div>
-            <div style="margin-top: 10px; background: var(--border); height: 8px; border-radius: 10px; overflow: hidden;">
-              <div style="background: linear-gradient(90deg, var(--primary), var(--secondary)); height: 100%; width: ${progresso}%;"></div>
-            </div>
-            <div style="color: #999; font-size: 11px; margin-top: 8px;">Vence: ${new Date(m.data).toLocaleDateString('pt-BR')}</div>
-          </div>
-        `;
-      }).join('');
-    }
-
-    /**
-     * Atualiza gráficos
-     */
-    function atualizarGraficos() {
-      if (transacoes.length === 0) {
-        document.getElementById('charts-container').innerHTML = `
-          <div class="empty-state">
-            <div class="empty-state-icon"><i class="fas fa-chart-line"></i></div>
-            <p>Adicione transações para visualizar os gráficos</p>
-          </div>
-        `;
-        return;
-      }
-
-      const receitas = transacoes.filter(t => t.tipo === 'receita');
-      const despesas = transacoes.filter(t => t.tipo === 'despesa');
-
-      const receitasPorCategoria = {};
-      const despesasPorCategoria = {};
-
-      receitas.forEach(t => {
-        receitasPorCategoria[t.categoria] = (receitasPorCategoria[t.categoria] || 0) + t.valor;
-      });
-
-      despesas.forEach(t => {
-        despesasPorCategoria[t.categoria] = (despesasPorCategoria[t.categoria] || 0) + t.valor;
-      });
-
-      document.getElementById('charts-container').innerHTML = `
-        <div class="chart-wrapper">
-          <canvas id="chartReceitas" role="img" aria-label="Receitas por categoria">Receitas</canvas>
-        </div>
-        <div class="chart-wrapper">
-          <canvas id="chartDespesas" role="img" aria-label="Despesas por categoria">Despesas</canvas>
-        </div>
-        <div class="chart-wrapper">
-          <canvas id="chartEvoluçao" role="img" aria-label="Evolução do saldo">Evolução</canvas>
-        </div>
-      `;
-
-      setTimeout(() => {
-        atualizarGraficoReceitas(receitasPorCategoria);
-        atualizarGraficoDespesas(despesasPorCategoria);
-        atualizarGraficoEvoluçao();
-      }, 0);
-    }
-
-    /**
-     * Atualiza gráfico de receitas
-     * @param {object} dados - Dados de receitas por categoria
-     */
-    function atualizarGraficoReceitas(dados) {
-      const ctx = document.getElementById('chartReceitas');
-      if (chartReceitas) chartReceitas.destroy();
-
-      const labels = Object.keys(dados);
-      const valores = Object.values(dados);
-
-      chartReceitas = new Chart(ctx, {
-        type: 'doughnut',
-        data: {
-          labels: labels,
-          datasets: [{
-            data: valores,
-            backgroundColor: ['#10b981', '#34d399', '#6ee7b7', '#a7f3d0', '#d1fae5'],
-            borderColor: 'white',
-            borderWidth: 2
-          }]
-        },
-        options: {
-          responsive: true,
-          maintainAspectRatio: false,
-          plugins: {
-            legend: { position: 'bottom', labels: { font: { size: 12 }, padding: 15 } }
-          }
-        }
-      });
-    }
-
-    /**
-     * Atualiza gráfico de despesas
-     * @param {object} dados - Dados de despesas por categoria
-     */
-    function atualizarGraficoDespesas(dados) {
-      const ctx = document.getElementById('chartDespesas');
-      if (chartDespesas) chartDespesas.destroy();
-
-      const labels = Object.keys(dados);
-      const valores = Object.values(dados);
-
-      chartDespesas = new Chart(ctx, {
-        type: 'doughnut',
-        data: {
-          labels: labels,
-          datasets: [{
-            data: valores,
-            backgroundColor: ['#ef4444', '#f87171', '#fca5a5', '#fecaca', '#fee2e2'],
-            borderColor: 'white',
-            borderWidth: 2
-          }]
-        },
-        options: {
-          responsive: true,
-          maintainAspectRatio: false,
-          plugins: {
-            legend: { position: 'bottom', labels: { font: { size: 12 }, padding: 15 } }
-          }
-        }
-      });
-    }
-
-    /**
-     * Atualiza gráfico de evolução
-     */
-    function atualizarGraficoEvoluçao() {
-      const ctx = document.getElementById('chartEvoluçao');
-      if (chartEvoluçao) chartEvoluçao.destroy();
-
-      const transacoesPorData = {};
-      transacoes.forEach(t => {
-        transacoesPorData[t.data] = (transacoesPorData[t.data] || 0) + (t.tipo === 'receita' ? t.valor : -t.valor);
-      });
-
-      const datasOrdenadas = Object.keys(transacoesPorData).sort();
-      let saldoAcumulado = 0;
-      const saldos = datasOrdenadas.map(data => {
-        saldoAcumulado += transacoesPorData[data];
-        return saldoAcumulado;
-      });
-
-      chartEvoluçao = new Chart(ctx, {
-        type: 'line',
-        data: {
-          labels: datasOrdenadas.map(d => new Date(d).toLocaleDateString('pt-BR')),
-          datasets: [{
-            label: 'Saldo',
-            data: saldos,
-            borderColor: '#667eea',
-            backgroundColor: 'rgba(102, 126, 234, 0.08)',
-            fill: true,
-            tension: 0.4,
-            borderWidth: 3,
-            pointRadius: 5,
-            pointBackgroundColor: '#667eea',
-            pointBorderColor: 'white',
-            pointBorderWidth: 2
-          }]
-        },
-        options: {
-          responsive: true,
-          maintainAspectRatio: false,
-          plugins: {
-            legend: { display: true, labels: { font: { size: 12 }, padding: 15 } }
-          },
-          scales: {
-            y: { beginAtZero: true }
-          }
-        }
-      });
-    }
-
-    // =============== INICIAR APP ===============
-    // Carrega dados ao iniciar
-    carregarDados();
-
-    // Listeners de teclado
-    document.getElementById('data').addEventListener('keypress', function(e) {
-      if (e.key === 'Enter') adicionarTransacao();
-    });
-
-    document.getElementById('valor').addEventListener('keypress', function(e) {
-      if (e.key === 'Enter') adicionarTransacao();
-    });
-
-    // Listeners de modals
-    document.getElementById('modal-limpar').addEventListener('click', function(e) {
-      if (e.target === this) fecharModal();
-    });
-
-    document.getElementById('modal-buscar').addEventListener('click', function(e) {
-      if (e.target === this) fecharModal();
-    });
-
-    document.getElementById('modal-notificacoes').addEventListener('click', function(e) {
-      if (e.target === this) fecharModal();
-    });
-  </script>
 </body>
 </html>
