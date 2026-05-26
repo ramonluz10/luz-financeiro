@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Luz Financeiro - Login</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+
+  <!-- =============== LOGIN/CADASTRO SCREEN =============== -->
+  <div class="auth-screen" id="authScreen">
+    <div class="auth-container">
+      
+      <!-- ===== FORMULÁRIO LOGIN ===== -->
+      <div class="auth-form" id="loginForm">
+        <div class="auth-logo">
+          <i class="fas fa-lightbulb"></i>
+          <h1>Luz Financeiro</h1>
+        </div>
+
+        <p class="auth-subtitle">Gerencie suas finanças com inteligência</p>
+
+        <form onsubmit="fazerLogin(event)">
+          <div class="form-group">
+            <label for="emailLogin"><i class="fas fa-envelope"></i> Email</label>
+            <input type="email" id="emailLogin" placeholder="seu@email.com" required>
+          </div>
+
+          <div class="form-group">
+            <label for="senhaLogin"><i class="fas fa-lock"></i> Senha</label>
+            <input type="password" id="senhaLogin" placeholder="Sua senha" required>
+            <small><a href="#" onclick="mostrarRecuperarSenha(event)">Esqueceu a senha?</a></small>
+          </div>
+
+          <button type="submit" class="btn-auth">
+            <i class="fas fa-sign-in-alt"></i> Entrar
+          </button>
+        </form>
+
+        <div class="auth-separator">OU</div>
+
+        <button type="button" class="btn-auth-secondary" onclick="mostrarCadastro()">
+          <i class="fas fa-user-plus"></i> Criar Conta
+        </button>
+
+        <p class="auth-footer">
+          <i class="fas fa-lock"></i> Seus dados são 100% seguros e privados
+        </p>
+      </div>
+
+      <!-- ===== FORMULÁRIO CADASTRO ===== -->
+      <div class="auth-form hidden" id="cadastroForm">
+        <div class="auth-logo">
+          <i class="fas fa-lightbulb"></i>
+          <h1>Criar Conta</h1>
+        </div>
+
+        <p class="auth-subtitle">Comece a controlar suas finanças</p>
+
+        <form onsubmit="fazerCadastro(event)">
+          <div class="form-group">
+            <label for="nomeCadastro"><i class="fas fa-user"></i> Nome Completo</label>
+            <input type="text" id="nomeCadastro" placeholder="João Silva" required minlength="3">
+          </div>
+
+          <div class="form-group">
+            <label for="emailCadastro"><i class="fas fa-envelope"></i> Email</label>
+            <input type="email" id="emailCadastro" placeholder="seu@email.com" required>
+            <small id="emailError" style="color: #ef4444; display: none;">Este email já está cadastrado</small>
+          </div>
+
+          <div class="form-group">
+            <label for="senhaCadastro"><i class="fas fa-lock"></i> Senha</label>
+            <input type="password" id="senhaCadastro" placeholder="Mínimo 6 caracteres" required minlength="6">
+            <small>Mínimo 6 caracteres</small>
+          </div>
+
+          <div class="form-group">
+            <label for="confirmarSenha"><i class="fas fa-lock"></i> Confirmar Senha</label>
+            <input type="password" id="confirmarSenha" placeholder="Confirme a senha" required>
+            <small id="senhaError" style="color: #ef4444; display: none;">As senhas não coincidem</small>
+          </div>
+
+          <div class="form-group">
+            <label>
+              <input type="checkbox" id="termos" required>
+              Concordo com os <a href="#">Termos de Uso</a>
+            </label>
+          </div>
+
+          <button type="submit" class="btn-auth">
+            <i class="fas fa-user-plus"></i> Criar Conta
+          </button>
+        </form>
+
+        <button type="button" class="btn-auth-secondary" onclick="mostrarLogin()">
+          <i class="fas fa-arrow-left"></i> Voltar
+        </button>
+
+        <p class="auth-footer">
+          <i class="fas fa-lock"></i> Seus dados são 100% seguros e privados
+        </p>
+      </div>
+
+      <!-- ===== FORMULÁRIO RECUPERAR SENHA ===== -->
+      <div class="auth-form hidden" id="recuperarForm">
+        <div class="auth-logo">
+          <i class="fas fa-lightbulb"></i>
+          <h1>Recuperar Senha</h1>
+        </div>
+
+        <p class="auth-subtitle">Digite seu email para recuperar a senha</p>
+
+        <form onsubmit="recuperarSenha(event)">
+          <div class="form-group">
+            <label for="emailRecuperar"><i class="fas fa-envelope"></i> Email Cadastrado</label>
+            <input type="email" id="emailRecuperar" placeholder="seu@email.com" required>
+            <small id="emailRecupError" style="color: #ef4444; display: none;">Email não encontrado</small>
+          </div>
+
+          <button type="submit" class="btn-auth">
+            <i class="fas fa-paper-plane"></i> Enviar Link
+          </button>
+        </form>
+
+        <button type="button" class="btn-auth-secondary" onclick="mostrarLogin()">
+          <i class="fas fa-arrow-left"></i> Voltar
+        </button>
+
+        <p class="auth-footer">
+          💡 Link será exibido na próxima tela
+        </p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- =============== APP CONTAINER =============== -->
+  <div class="app-container" id="appContainer" style="display: none;">
+    <div class="overlay" id="overlay" onclick="fecharSidebar()"></div>
+
+    <!-- =============== SIDEBAR =============== -->
+    <div class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <div class="sidebar-logo">💡 Luz</div>
+      </div>
+
+      <div class="sidebar-menu">
+        <div class="menu-item active" onclick="mudarAba('dashboard')">
+          <i class="fas fa-chart-line"></i>
+          Dashboard
+        </div>
+        <div class="menu-item" onclick="mudarAba('metas')">
+          <i class="fas fa-target"></i>
+          Metas
+        </div>
+        <div class="menu-item" onclick="mudarAba('categorias')">
+          <i class="fas fa-tags"></i>
+          Categorias
+        </div>
+        <div class="menu-item" onclick="mudarAba('relatorios')">
+          <i class="fas fa-file-pdf"></i>
+          Relatórios
+        </div>
+      </div>
+
+      <div class="sidebar-footer">
+        <div class="user-card">
+          <strong id="userName">Carregando...</strong>
+          <small id="userEmail">email@example.com</small>
+        </div>
+        <button class="btn-logout" onclick="fazerLogout()">
+          <i class="fas fa-sign-out-alt"></i> Sair
+        </button>
+      </div>
+    </div>
+
+    <!-- =============== MAIN CONTENT =============== -->
+    <div class="main-content">
+      <!-- =============== HEADER =============== -->
+      <div class="header">
+        <div class="header-left">
+          <button class="btn-menu" onclick="abrirSidebar()">
+            <i class="fas fa-bars"></i>
+          </button>
+          <div class="header-title">
+            <i class="fas fa-lightbulb"></i> Luz v3
+          </div>
+        </div>
+        <div class="header-actions">
+          <button class="btn-icon" onclick="exportarPDF()" title="Baixar PDF">
+            <i class="fas fa-file-pdf"></i>
+          </button>
+          <button class="btn-icon" onclick="exportarCSV()" title="Exportar CSV">
+            <i class="fas fa-download"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- =============== CONTENT =============== -->
+      <div class="content">
+        <!-- ===== DASHBOARD VIEW ===== -->
+        <div id="dashboard" class="view active">
+          <!-- Métricas -->
+          <div class="metrics-grid">
+            <div class="metric-card positive">
+              <div class="metric-label"><i class="fas fa-arrow-up"></i> Receita Total</div>
+              <div class="metric-value" id="totalReceita">R$ 0,00</div>
+            </div>
+            <div class="metric-card negative">
+              <div class="metric-label"><i class="fas fa-arrow-down"></i> Despesa Total</div>
+              <div class="metric-value" id="totalDespesa">R$ 0,00</div>
+            </div>
+            <div class="metric-card">
+              <div class="metric-label"><i class="fas fa-wallet"></i> Saldo</div>
+              <div class="metric-value" id="saldo">R$ 0,00</div>
+            </div>
+            <div class="metric-card">
+              <div class="metric-label"><i class="fas fa-list"></i> Transações</div>
+              <div class="metric-value" id="totalTransacoes">0</div>
+            </div>
+          </div>
+
+          <!-- Adicionar Transação -->
+          <div class="section">
+            <div class="section-title">
+              <i class="fas fa-plus-circle"></i> Adicionar Transação
+            </div>
+            <div class="form-grid">
+              <input type="text" id="descricao" placeholder="Descrição *" maxlength="50">
+              <input type="number" id="valor" placeholder="Valor *" step="0.01" min="0.01">
+              <select id="tipo">
+                <option value="">Tipo *</option>
+                <option value="receita">Receita</option>
+                <option value="despesa">Despesa</option>
+              </select>
+              <select id="categoria">
+                <option value="">Categoria *</option>
+                <option value="Salário">Salário</option>
+                <option value="Freelance">Freelance</option>
+                <option value="Investimento">Investimento</option>
+                <option value="Aluguel">Aluguel</option>
+                <option value="Alimentação">Alimentação</option>
+                <option value="Transporte">Transporte</option>
+                <option value="Saúde">Saúde</option>
+                <option value="Educação">Educação</option>
+                <option value="Lazer">Lazer</option>
+                <option value="Outros">Outros</option>
+              </select>
+              <input type="date" id="data">
+            </div>
+            <button class="btn-add" onclick="adicionarTransacao()">
+              <i class="fas fa-plus"></i> Adicionar
+            </button>
+          </div>
+
+          <!-- Histórico -->
+          <div class="section">
+            <div class="section-title">
+              <i class="fas fa-history"></i> Histórico
+            </div>
+            <div class="table-wrapper">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Descrição</th>
+                    <th>Categoria</th>
+                    <th>Data</th>
+                    <th style="text-align: right;">Valor</th>
+                  </tr>
+                </thead>
+                <tbody id="tbody-transacoes">
+                  <tr>
+                    <td colspan="4" style="text-align: center; padding: 40px; color: #999;">Nenhuma transação</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- ===== METAS VIEW ===== -->
+        <div id="metas" class="view">
+          <div class="section">
+            <div class="section-title">
+              <i class="fas fa-bullseye"></i> Criar Nova Meta
+            </div>
+            <div class="form-grid">
+              <input type="text" id="nomeMeta" placeholder="Nome da meta *" maxlength="30">
+              <input type="number" id="valorMeta" placeholder="Valor alvo *" step="0.01" min="0.01">
+              <input type="date" id="dataMeta">
+              <select id="prioridadeMeta">
+                <option value="baixa">Baixa Prioridade</option>
+                <option value="media">Média Prioridade</option>
+                <option value="alta">Alta Prioridade</option>
+              </select>
+            </div>
+            <button class="btn-add" onclick="adicionarMeta()">
+              <i class="fas fa-plus"></i> Criar Meta
+            </button>
+          </div>
+
+          <div class="section">
+            <div class="section-title">
+              <i class="fas fa-rocket"></i> Suas Metas
+            </div>
+            <div id="metasContainer">
+              <div class="empty-state">
+                <div class="empty-state-icon"><i class="fas fa-target"></i></div>
+                <p>Nenhuma meta criada</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ===== CATEGORIAS VIEW ===== -->
+        <div id="categorias" class="view">
+          <div class="section">
+            <div class="section-title">
+              <i class="fas fa-chart-pie"></i> Análise por Categoria
+            </div>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;" id="categoriasContainer">
+              <div class="empty-state" style="grid-column: 1 / -1;">
+                <div class="empty-state-icon"><i class="fas fa-tags"></i></div>
+                <p>Nenhuma categoria com transações</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ===== RELATÓRIOS VIEW ===== -->
+        <div id="relatorios" class="view">
+          <div class="section">
+            <div class="section-title">
+              <i class="fas fa-file-pdf"></i> Gerar Relatório
+            </div>
+            <div class="form-grid">
+              <select id="tipoRelatorio" style="grid-column: 1 / -1;">
+                <option value="completo">📊 Relatório Completo</option>
+                <option value="mensal">📅 Relatório Mensal</option>
+                <option value="categoria">🏷️ Por Categoria</option>
+                <option value="metas">🎯 Metas</option>
+              </select>
+            </div>
+            <button class="btn-add" onclick="gerarRelatorioPDF()" style="grid-column: 1 / -1;">
+              <i class="fas fa-download"></i> Baixar PDF
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/auth.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/transacoes.js"></script>
+  <script src="js/metas.js"></script>
+  <script src="js/exportacao.js"></script>
+  <script src="js/utils.js"></script>
+
+</body>
+</html>
